@@ -1,0 +1,166 @@
+colorscheme github
+set guifont=Consolas:h15
+set guioptions-=T
+
+" Change which file opens after executing :Rails command
+let g:rails_default_file='config/database.yml'
+
+" save sessions with .vims extension
+map <leader>s :mksession!  session.vims<CR>
+    
+"folding settings
+set foldmethod=indent   "fold based on indent
+set foldnestmax=20      "deepest fold is 10 levels
+set nofoldenable        "dont fold by default
+set foldlevel=99         "this is just what i use
+
+highlight comment gui=italic guifg=#999988
+
+au BufRead,BufNewFile *.mos set ft=mosel
+au BufRead,BufNewFile *.dat set syntax=off
+au BufRead,BufNewFile *.fin set ft=xml
+au BufRead,BufNewFile *.lbsl set ft=xml
+au BufRead,BufNewFile *.lp set syntax=off
+
+au FileType xml exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
+
+set diffopt+=iwhite
+set maxmemtot=1500000 "total for vim
+set maxmem=750000 "per buffer
+
+" Press Space to turn off highlighting and clear any message already displayed.
+:nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+
+"pressing enter inserts a new line without going to edit mode
+map <S-Enter> o<Esc>
+" map <CR> O<Esc>
+
+"wrapping settings
+:set wrap
+:set linebreak
+:set nolist  " list disables linebreak
+:set textwidth=0
+:set wrapmargin=0
+:set formatoptions+=l
+
+:set linespace=3
+
+
+" mods from http://nvie.com/posts/how-i-boosted-my-vim/
+nnoremap ; :
+
+
+" ================ Turn Off Swap Files ==============
+
+set noswapfile
+set nobackup
+set nowb
+
+" Two semicolons are easy to type.
+:imap ;; <Esc>
+
+" alias yw to yank the entire word 'yank inner word'
+" even if the cursor is halfway inside the word
+" FIXME: will not properly repeat when you use a dot (tie into repeat.vim)
+nnoremap ,yw yiww
+
+" ,ow = 'overwrite word', replace a word with what's in the yank buffer
+" FIXME: will not properly repeat when you use a dot (tie into repeat.vim)
+nnoremap ,ow "_diwhp
+
+"make Y consistent with C and D
+nnoremap Y y$
+
+" ========================================
+" RSI Prevention - keyboard remaps
+" ========================================
+" Certain things we do every day as programmers stress
+" out our hands. For example, typing underscores and
+" dashes are very common, and in position that require
+" a lot of hand movement. Vim to the rescue
+"
+" Now using the middle finger of either hand you can type
+" underscores with apple-k or apple-d, and add Shift
+" to type dashes
+imap <silent> <D-k> _
+imap <silent> <D-d> _
+imap <silent> <D-K> -
+imap <silent> <D-D> -
+
+" ,# Surround a word with #{ruby interpolation}
+map ,# ysiw#
+vmap ,# c#{<C-R>"}<ESC>
+
+"Go to last edit location with ,.
+nnoremap ,. '.
+
+" ==== NERD tree
+" Cmd-Shift-N for nerd tree
+nmap <D-N> :NERDTreeToggle<CR>
+
+" Open the project tree and expose current file in the nerdtree with Ctrl-\
+nnoremap <silent> <C-\> :NERDTreeFind<CR>
+
+" Command-/ to toggle comments
+map <D-/> :TComment<CR>
+imap <D-/> <Esc>:TComment<CR>i
+
+" hit ,f to find the definition of the current class
+" this uses ctags. the standard way to get this is Ctrl-]
+nnoremap <silent> ,f <C-]>
+
+" Create window splits easier. The default
+" way is Ctrl-w,v and Ctrl-w,s. I remap
+" this to vv and ss
+nnoremap <silent> vv <C-w>v
+nnoremap <silent> ss <C-w>s
+
+" Apple-* Highlight all occurrences of current word (like '*' but without moving)
+" http://vim.wikia.com/wiki/Highlight_all_search_pattern_matches
+nnoremap <D-*> :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
+
+"define mosel comment string
+call tcomment#DefineType('mosel', '! %s')
+call tcomment#DefineType('mosel_block', '(! %s !)')
+
+" syntax highlight fromstart - slow? but accurate
+autocmd BufEnter *.mos,*.rb :syntax sync fromstart
+
+" disable refresh of NERDTree when switching between apps
+autocmd! AuNERDTreeCmd FocusGained
+
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlPMixed'
+
+" map command-t to ctrl-p
+map <D-T> :CtrlPMixed<CR>
+
+" pressing Tab on the command line will show a menu to complete buffer and file names
+" set wildchar=<Tab> wildmenu wildmode=full
+
+" open the buffer menu
+" set wildcharm=<C-Z>
+" nnoremap <C-b> :b <C-Z>
+
+" open existing tab if buffer already open in a tab
+:set switchbuf+=usetab,newtab
+
+" workaround to get rid of issue w/ discretionary end bug in vim
+let g:SuperTabCrMapping = 0
+
+let g:session_autosave_periodic = 5
+
+" set nerdtree mouse mode to 3 to open nodes and files with single click
+let g:NERDTreeMouseMode = 3
+
+" mappings for bufstop
+map <leader>b :Bufstop<CR>
+map <leader>a :BufstopModeFast<CR>
+map <C-tab>   :BufstopBack<CR>
+map <S-tab>   :BufstopForward<CR>
+
+let g:BufstopSpeedKeys = ["<F1>", "<F2>", "<F3>", "<F4>", "<F5>", "<F6>"]
+let g:BufstopLeader = ""
+let g:BufstopAutoSpeedToggle = 1
+
+autocmd VimEnter * BufstopSpeedToggle

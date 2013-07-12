@@ -1,0 +1,9 @@
+" let g:NERDCustomDelimiters = {
+"         \ 'mosel': { 'left': '!', 'leftAlt': '(!', 'rightAlt': '!)' }
+"     \ }
+
+" Change leader to a comma because the backslash is too far away
+" That means all \x commands turn into ,x
+let mapleader=","
+call janus#disable_plugin('pep8')
+
