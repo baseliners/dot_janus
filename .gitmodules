@@ -22,9 +22,6 @@
 [submodule "vim-addon-mw-utils"]
 	path = vim-addon-mw-utils
 	url = https://github.com/MarcWeber/vim-addon-mw-utils.git
-[submodule "vim-misc"]
-	path = vim-misc
-	url = https://github.com/xolox/vim-misc
 [submodule "vim-nerdtree-tabs"]
 	path = vim-nerdtree-tabs
 	url = https://github.com/jistr/vim-nerdtree-tabs.git
@@ -34,12 +31,18 @@
 [submodule "vim-session"]
 	path = vim-session
 	url = https://github.com/xolox/vim-session.git
-[submodule "vim-snipmate"]
-	path = vim-snipmate
-	url = git://github.com/garbas/vim-snipmate.git
 [submodule "vim-xpath"]
 	path = vim-xpath
 	url = git://github.com/actionshrimp/vim-xpath.git
+[submodule "vim-misc"]
+	path = vim-misc
+	url = https://github.com/xolox/vim-misc
+	branch = master
 [submodule "vim-easytags"]
 	path = vim-easytags
 	url = https://github.com/xolox/vim-easytags.git
+	branch = master
+[submodule "vim-snipmate"]
+	path = vim-snipmate
+	url = git://github.com/garbas/vim-snipmate.git
+	branch = master
