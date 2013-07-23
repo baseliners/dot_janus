@@ -40,3 +40,6 @@
 [submodule "vim-xpath"]
 	path = vim-xpath
 	url = git://github.com/actionshrimp/vim-xpath.git
+[submodule "vim-easytags"]
+	path = vim-easytags
+	url = https://github.com/xolox/vim-easytags.git
