@@ -46,3 +46,7 @@
 	path = vim-snipmate
 	url = git://github.com/garbas/vim-snipmate.git
 	branch = master
+[submodule "vim-cucumber"]
+	path = vim-cucumber
+	url = https://github.com/tpope/vim-cucumber.git
+	branch = master
