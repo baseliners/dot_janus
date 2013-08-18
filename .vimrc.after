@@ -57,7 +57,7 @@ set nobackup
 set nowb
 
 " Two semicolons are easy to type.
-:imap ;; <Esc>
+:imap ii <Esc>
 
 " alias yw to yank the entire word 'yank inner word'
 " even if the cursor is halfway inside the word
@@ -157,11 +157,23 @@ let g:NERDTreeMouseMode = 3
 " mappings for bufstop
 map <leader>b :Bufstop<CR>
 map <leader>a :BufstopModeFast<CR>
-map <C-tab>   :BufstopBack<CR>
-map <S-tab>   :BufstopForward<CR>
+" map <C-tab>   :BufstopBack<CR>
+" map <S-tab>   :BufstopForward<CR>
 
 let g:BufstopSpeedKeys = ["<F1>", "<F2>", "<F3>", "<F4>", "<F5>", "<F6>"]
 let g:BufstopLeader = ""
 let g:BufstopAutoSpeedToggle = 1
 
 autocmd VimEnter * BufstopSpeedToggle
+
+" tab navigation like firefox
+nnoremap <C-S-tab> :tabprevious<CR>
+nnoremap <C-tab>   :tabnext<CR>
+" nnoremap <C-t>     :tabnew<CR>
+inoremap <C-S-tab> <Esc>:tabprevious<CR>i
+inoremap <C-tab>   <Esc>:tabnext<CR>i
+inoremap <C-t>     <Esc>:tabnew<CR>
+
+" faster mappings for easymotion while in insert mode
+:imap ww         <Esc>:<C-U>call EasyMotion#WB(1, 0)<CR>
+:imap bb         <Esc>:<C-U>call EasyMotion#WB(1, 1)<CR>
