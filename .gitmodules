@@ -50,3 +50,7 @@
 	path = vim-cucumber
 	url = https://github.com/tpope/vim-cucumber.git
 	branch = master
+[submodule "Vim-R-plugin"]
+	path = Vim-R-plugin
+	url = https://github.com/vim-scripts/Vim-R-plugin.git
+	branch = master
