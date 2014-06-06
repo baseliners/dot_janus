@@ -177,3 +177,29 @@ inoremap <C-t>     <Esc>:tabnew<CR>
 " faster mappings for easymotion while in insert mode
 :imap ww         <Esc>:<C-U>call EasyMotion#WB(1, 0)<CR>
 :imap bb         <Esc>:<C-U>call EasyMotion#WB(1, 1)<CR>
+
+
+function! s:get_visual_selection()
+  " Why is this not a built-in Vim script function?!
+  let [lnum1, col1] = getpos("'<")[1:2]
+  let [lnum2, col2] = getpos("'>")[1:2]
+  let lines = getline(lnum1, lnum2)
+  let lines[-1] = lines[-1][: col2 - (&selection == 'inclusive' ? 1 : 2)]
+  let lines[0] = lines[0][col1 - 1:]
+  return join(lines, "\n")
+endfunction
+
+
+function Execute_prodhive_query()
+  echo s:get_visual_selection()
+
+  let query = s:get_visual_selection()
+  let file_suffix = strftime("%Y%m%d%H%M%S")
+  let cmd = "silent ! prodhive" . " \'" . query . "\' " . " 2>&1 | tee /tmp/hivequery_" . file_suffix . " & "
+
+  execute cmd
+  execute "silent !mvim_noglob " . file_suffix . " &"
+
+endfunction
+
+map <leader>h :call Execute_prodhive_query()<CR>
