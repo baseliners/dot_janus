@@ -197,10 +197,10 @@ function Execute_prodhive_query()
   echo query
   let encoded_query = system("echo '" . query . "' | base64")
   let file_suffix = strftime("%Y%m%d%H%M%S")
-  let cmd = "silent ! prodhive " . shellescape(encoded_query, 1) . " 2>&1 | tee /tmp/hivequery_" . file_suffix . " & "
+  let cmd = "silent ! ~/bin/prodhive " . shellescape(encoded_query, 1) . " 2>&1 | tee /tmp/hivequery_" . file_suffix . " & "
 
   execute cmd
-  execute "silent !mvim_noglob " . file_suffix . " &"
+  execute "silent ! ~/bin/mvim_noglob " . file_suffix . " &"
 
 endfunction
 
