@@ -24,6 +24,9 @@ au BufRead,BufNewFile *.lp set syntax=off
 
 au FileType xml exe ":silent 1,$!xmllint --format --recover - 2>/dev/null"
 
+" Treat .hql files as SQL for syntax highlighting
+au BufNewFile,BufRead *.hql set filetype=sql
+
 set diffopt+=iwhite
 set maxmemtot=1500000 "total for vim
 set maxmem=750000 "per buffer
@@ -190,14 +193,13 @@ function! s:get_visual_selection()
 endfunction
 
 
-function Execute_prodhive_query()
+function Execute_prodhive_query() range
   echo s:get_visual_selection()
 
   let query = s:get_visual_selection()
-  echo query
   let encoded_query = system("echo '" . query . "' | base64")
   let file_suffix = strftime("%Y%m%d%H%M%S")
-  let cmd = "silent ! ~/bin/prodhive " . shellescape(encoded_query, 1) . " 2>&1 | tee /tmp/hivequery_" . file_suffix . " & "
+  let cmd = "silent ! ~/bin/prodhive " . shellescape(encoded_query, 1) . " 2>&1 | tee ~/tmp/hivequery_" . file_suffix . " & "
 
   execute cmd
   execute "silent ! ~/bin/mvim_noglob " . file_suffix . " &"
@@ -207,3 +209,5 @@ endfunction
 map <leader>h :call Execute_prodhive_query()<CR>
 
 let g:session_autoload = 'no'
+
+:autocmd ColorScheme * highlight ExtraWhitespace ctermbg=white guibg=white
